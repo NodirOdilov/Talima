@@ -1,0 +1,57 @@
+name: Сообщить об ошибке
+description: Опишите баг, чтобы мы могли его воспроизвести и исправить
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо за отчёт. Для уязвимостей безопасности используйте [Security Advisories](https://github.com/NodirOdilov/Talima/security/advisories/new), а не этот шаблон.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Описание
+      description: Что произошло и что вы ожидали?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Шаги воспроизведения
+      placeholder: |
+        1. Войти как student1
+        2. Открыть /app/student/shop
+        3. ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Область
+      options:
+        - Backend (Django API)
+        - Frontend (React SPA)
+        - Auth / JWT
+        - CRM
+        - Academics
+        - Finance
+        - Другое
+    validations:
+      required: true
+
+  - type: input
+    id: versions
+    attributes:
+      label: Окружение
+      placeholder: "OS, Node 20, Python 3.12, Chrome 120"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Логи / traceback
+      render: shell

@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Talima.uz — ta'lim markazlarini boshqarish uchun zamonaviy CRM. Davomat, darslar, AI testlar, geymifikatsiya va to'lovlarni bitta platformada." />
+  <meta name="theme-color" content="#6366f1" />
+  <meta name="application-name" content="Talima" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <title>Talima.uz — Ta'lim markazlari uchun zamonaviy CRM</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Non-blocking font load: page renders with fallback font, swaps when ready -->
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" /></noscript>
+
+  <script src="js/tailwind.js"></script>
+  <script src="js/lucide.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Space Grotesk', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50:  '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+          },
+          animation: {
+            'float':       'float 6s ease-in-out infinite',
+            'float-slow':  'float 9s ease-in-out infinite',
+            'gradient':    'gradient 12s ease infinite',
+            'spin-slow':   'spin 18s linear infinite',
+            'pulse-soft':  'pulse-soft 4s ease-in-out infinite',
+            'fade-up':     'fadeUp 0.8s ease-out both',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%':      { transform: 'translateY(-18px)' },
+            },
+            gradient: {
+              '0%, 100%': { 'background-position': '0% 50%' },
+              '50%':      { 'background-position': '100% 50%' },
+            },
+            'pulse-soft': {
+              '0%, 100%': { opacity: '0.6' },
+              '50%':      { opacity: '1' },
+            },
+            fadeUp: {
+              from: { opacity: '0', transform: 'translateY(28px)' },
+              to:   { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="bg-white text-slate-900 font-sans antialiased dark:bg-slate-950 dark:text-slate-100 selection:bg-brand-200 selection:text-brand-900">
+
+  <!-- Decorative background -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute -top-40 -right-40 h-[480px] w-[480px] rounded-full bg-brand-300/40 dark:bg-brand-600/20 blur-3xl"></div>
+    <div class="absolute top-1/3 -left-40 h-[420px] w-[420px] rounded-full bg-fuchsia-300/40 dark:bg-fuchsia-700/20 blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 h-[360px] w-[360px] rounded-full bg-emerald-300/40 dark:bg-emerald-700/20 blur-3xl"></div>
+  </div>
+
+  <!-- ====================== NAVBAR ====================== -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+    <div class="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <nav class="mt-4 flex items-center justify-between rounded-2xl border border-slate-200/70 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl px-4 py-3 shadow-sm">
+
+        <a href="#" class="flex items-center gap-2.5 group">
+          <img src="/favicon.svg" alt="Talima" width="36" height="36" class="h-9 w-9 rounded-xl shadow-lg shadow-brand-500/30 group-hover:scale-110 transition-transform" />
+          <span class="font-display text-xl font-bold tracking-tight">Talima<span class="text-brand-500">.uz</span></span>
+        </a>
+
+        <div class="hidden lg:flex items-center gap-8 text-sm font-medium">
+          <a href="#features"  class="hover:text-brand-600 transition" data-i18n="nav.features">Imkoniyatlar</a>
+          <a href="#roles"     class="hover:text-brand-600 transition" data-i18n="nav.roles">Kim uchun</a>
+          <a href="#showcase"  class="hover:text-brand-600 transition" data-i18n="nav.showcase">Demo</a>
+          <a href="#pricing"   class="hover:text-brand-600 transition" data-i18n="nav.pricing">Tariflar</a>
+          <a href="#faq"       class="hover:text-brand-600 transition" data-i18n="nav.faq">FAQ</a>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <!-- Language switcher -->
+          <div class="relative lg:mr-2" id="langSwitcher">
+            <button id="langBtn" class="h-9 inline-flex items-center gap-1.5 rounded-xl px-3 text-sm font-medium border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition">
+              <i data-lucide="globe" class="h-4 w-4"></i>
+              <span id="langLabel">RU</span>
+              <i data-lucide="chevron-down" class="h-3.5 w-3.5"></i>
+            </button>
+            <div id="langMenu" class="hidden absolute right-0 mt-2 w-36 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 shadow-xl overflow-hidden">
+              <button data-lang="uz" class="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 dark:hover:bg-white/5 flex items-center gap-2"><span>🇺🇿</span> O'zbekcha</button>
+              <button data-lang="ru" class="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 dark:hover:bg-white/5 flex items-center gap-2"><span>🇷🇺</span> Русский</button>
+              <button data-lang="en" class="w-full text-left px-3 py-2 text-sm hover:bg-slate-50 dark:hover:bg-white/5 flex items-center gap-2"><span>🇺🇸</span> English</button>
+            </div>
+          </div>
+
+          <!-- Dark mode -->
+          <button id="themeBtn" aria-label="Toggle theme" class="h-9 w-9 inline-flex items-center justify-center rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition">
+            <i data-lucide="moon" class="h-4 w-4 hidden dark:inline"></i>
+            <i data-lucide="sun"  class="h-4 w-4 inline dark:hidden"></i>
+          </button>
+
+          <a href="/app/" class="hidden sm:inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-brand-600 transition" data-i18n="nav.login">Kirish</a>
+
+          <a href="#cta" class="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-brand-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:-translate-y-0.5 transition" data-i18n="nav.cta">
+            <span>Bepul boshlash</span>
+            <i data-lucide="arrow-right" class="h-4 w-4"></i>
+          </a>
+
+          <!-- Mobile menu -->
+          <button id="mobileBtn" class="lg:hidden rounded-xl p-2 border border-slate-200 dark:border-white/10">
+            <i data-lucide="menu" class="h-5 w-5"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile dropdown -->
+      <div id="mobileMenu" class="hidden lg:hidden mt-2 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl p-4 space-y-2 text-sm font-medium shadow-lg">
+        <a href="#features" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5" data-i18n="nav.features">Imkoniyatlar</a>
+        <a href="#roles"    class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5" data-i18n="nav.roles">Kim uchun</a>
+        <a href="#showcase" class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5" data-i18n="nav.showcase">Demo</a>
+        <a href="#pricing"  class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5" data-i18n="nav.pricing">Tariflar</a>
+        <a href="#faq"      class="block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5" data-i18n="nav.faq">FAQ</a>
+        <a href="/app/" class="block px-3 py-2 rounded-lg bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300 font-semibold" data-i18n="nav.login">Tizimga kirish</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-32">
+
+    <!-- ====================== HERO ====================== -->
+    <section class="relative">
+      <div class="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+        <div class="grid lg:grid-cols-2 gap-12 xl:gap-16 2xl:gap-20 items-center">
+
+          <div class="reveal">
+            <span class="inline-flex items-center gap-2 rounded-full border border-brand-200 dark:border-brand-500/30 bg-brand-50 dark:bg-brand-500/10 px-4 py-1.5 text-xs font-semibold text-brand-700 dark:text-brand-300">
+              <span class="h-1.5 w-1.5 rounded-full bg-brand-500 animate-pulse"></span>
+              <span data-i18n="hero.badge">Yangi: AI Test Generator endi mavjud</span>
+            </span>
+
+            <h1 class="mt-6 font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+              <span data-i18n="hero.title1">Ta'lim markazingiz uchun</span>
+              <span class="bg-gradient-to-r from-brand-600 via-fuchsia-500 to-emerald-500 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient" data-i18n="hero.title2">aqlli ekosistema</span>
+            </h1>
+
+            <p class="mt-6 text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed" data-i18n="hero.subtitle">
+              Davomat, darslar, to'lovlar, AI testlar va talabalar geymifikatsiyasi —
+              barchasi bitta zamonaviy platformada. 4 rolli to'liq CRM yechim.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a href="#cta" class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-600 to-fuchsia-600 px-6 py-3.5 text-base font-semibold text-white shadow-xl shadow-brand-500/30 hover:shadow-2xl hover:shadow-brand-500/50 hover:-translate-y-0.5 transition">
+                <span data-i18n="hero.ctaPrimary">14 kun bepul sinash</span>
+                <i data-lucide="arrow-right" class="h-5 w-5"></i>
+              </a>
+              <a href="#showcase" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur px-6 py-3.5 text-base font-semibold hover:bg-white dark:hover:bg-white/10 transition">
+                <i data-lucide="play-circle" class="h-5 w-5"></i>
+                <span data-i18n="hero.ctaSecondary">Demoni ko'rish</span>
+              </a>
+            </div>
+
+            <!-- Trust indicators -->
+            <div class="mt-10 grid grid-cols-3 gap-6 max-w-lg">
+              <div>
+                <div class="font-display text-3xl font-bold text-brand-600 dark:text-brand-400">100+</div>
+                <div class="text-sm text-slate-500 dark:text-slate-400 mt-1" data-i18n="hero.stat1">Markazlar</div>
+              </div>
+              <div>
+                <div class="font-display text-3xl font-bold text-fuchsia-600 dark:text-fuchsia-400">10k+</div>
+                <div class="text-sm text-slate-500 dark:text-slate-400 mt-1" data-i18n="hero.stat2">Talabalar</div>
+              </div>
+              <div>
+                <div class="font-display text-3xl font-bold text-emerald-600 dark:text-emerald-400">98%</div>
+                <div class="text-sm text-slate-500 dark:text-slate-400 mt-1" data-i18n="hero.stat3">Mamnuniyat</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Visual: Floating dashboard mockup -->
+          <div class="relative reveal" style="animation-delay:.2s">
+            <div class="relative mx-auto max-w-xl xl:max-w-2xl 2xl:max-w-[680px]">
+              <!-- Glow -->
+              <div class="absolute -inset-8 bg-gradient-to-tr from-brand-500/30 via-fuchsia-500/30 to-emerald-500/30 rounded-[3rem] blur-3xl"></div>
+
+              <!-- Main card: Student dashboard mock -->
+              <div class="relative rounded-3xl border border-white/40 dark:border-white/10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl shadow-2xl p-5 animate-float">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="flex items-center gap-2">
+                    <div class="h-3 w-3 rounded-full bg-red-400"></div>
+                    <div class="h-3 w-3 rounded-full bg-yellow-400"></div>
+                    <div class="h-3 w-3 rounded-full bg-green-400"></div>
+                  </div>
+                  <span class="text-xs text-slate-400">talima.uz/dashboard</span>
+                </div>
+
+                <div class="space-y-3">
+                  <!-- Header card -->
+                  <div class="rounded-2xl bg-gradient-to-r from-brand-500 to-fuchsia-500 p-4 text-white">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <div class="text-xs opacity-80" data-i18n="mock.welcome">Xush kelibsiz</div>
+                        <div class="font-semibold">Aziz Karimov</div>
+                      </div>
+                      <div class="text-right">
+                        <div class="text-2xl font-bold">1,250</div>
+                        <div class="text-xs opacity-80" data-i18n="mock.points">ball</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Stats grid -->
+                  <div class="grid grid-cols-3 gap-2">
+                    <div class="rounded-xl bg-emerald-50 dark:bg-emerald-500/10 p-3">
+                      <i data-lucide="check-circle-2" class="h-4 w-4 text-emerald-500"></i>
+                      <div class="mt-1 text-lg font-bold text-emerald-700 dark:text-emerald-300">96%</div>
+                      <div class="text-[10px] text-emerald-600/80 dark:text-emerald-400/80" data-i18n="mock.attendance">Davomat</div>
+                    </div>
+                    <div class="rounded-xl bg-amber-50 dark:bg-amber-500/10 p-3">
+                      <i data-lucide="trophy" class="h-4 w-4 text-amber-500"></i>
+                      <div class="mt-1 text-lg font-bold text-amber-700 dark:text-amber-300">12</div>
+                      <div class="text-[10px] text-amber-600/80 dark:text-amber-400/80" data-i18n="mock.rank">Reyting</div>
+                    </div>
+                    <div class="rounded-xl bg-sky-50 dark:bg-sky-500/10 p-3">
+                      <i data-lucide="book-open" class="h-4 w-4 text-sky-500"></i>
+                      <div class="mt-1 text-lg font-bold text-sky-700 dark:text-sky-300">4</div>
+                      <div class="text-[10px] text-sky-600/80 dark:text-sky-400/80" data-i18n="mock.subjects">Fanlar</div>
+                    </div>
+                  </div>
+
+                  <!-- Chart bars -->
+                  <div class="rounded-xl border border-slate-200 dark:border-white/10 p-3">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-xs font-semibold" data-i18n="mock.weekly">Haftalik faollik</span>
+                      <span class="text-[10px] text-emerald-500 font-semibold">+12%</span>
+                    </div>
+                    <div class="flex items-end justify-between gap-1.5 h-16">
+                      <div class="flex-1 rounded-t bg-gradient-to-t from-brand-400 to-brand-300" style="height:50%"></div>
+                      <div class="flex-1 rounded-t bg-gradient-to-t from-brand-400 to-brand-300" style="height:75%"></div>
+                      <div class="flex-1 rounded-t bg-gradient-to-t from-brand-400 to-brand-300" style="height:40%"></div>
+                      <div class="flex-1 rounded-t bg-gradient-to-t from-fuchsia-500 to-fuchsia-400" style="height:90%"></div>
+                      <div class="flex-1 rounded-t bg-gradient-to-t from-brand-400 to-brand-300" style="height:65%"></div>
+                      <div class="flex-1 rounded-t bg-gradient-to-t from-brand-400 to-brand-300" style="height:80%"></div>
+                      <div class="flex-1 rounded-t bg-gradient-to-t from-brand-400 to-brand-300" style="height:55%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating mini-card 1: Pomodoro -->
+              <div class="absolute -left-8 top-12 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-xl p-3 w-44 animate-float-slow hidden sm:block">
+                <div class="flex items-center gap-2">
+                  <div class="grid place-items-center h-9 w-9 rounded-xl bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400">
+                    <i data-lucide="timer" class="h-4 w-4"></i>
+                  </div>
+                  <div>
+                    <div class="text-[10px] text-slate-500" data-i18n="mock.focus">Fokus rejimi</div>
+                    <div class="text-sm font-bold">24:35</div>
+                  </div>
+                </div>
+                <div class="mt-2 h-1 rounded-full bg-slate-100 dark:bg-white/10">
+                  <div class="h-1 rounded-full bg-rose-500" style="width:65%"></div>
+                </div>
+              </div>
+
+              <!-- Floating mini-card 2: New message -->
+              <div class="absolute -right-6 bottom-16 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-xl p-3 w-52 animate-float hidden sm:block" style="animation-delay:.6s">
+                <div class="flex items-start gap-2">
+                  <div class="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white text-xs font-bold">N</div>
+                  <div class="flex-1">
+                    <div class="text-xs font-semibold">Nodira opa</div>
+                    <div class="text-[11px] text-slate-500 line-clamp-1" data-i18n="mock.msg">Bugungi uy vazifasi tayyormi?</div>
+                  </div>
+                  <div class="h-2 w-2 rounded-full bg-emerald-500 mt-1.5"></div>
+                </div>
+              </div>
+
+              <!-- Floating mini-card 3: Achievement -->
+              <div class="absolute -left-6 -bottom-4 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-2xl p-3 w-48 animate-float-slow hidden sm:block" style="animation-delay:.3s">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="award" class="h-6 w-6"></i>
+                  <div>
+                    <div class="text-[10px] opacity-90" data-i18n="mock.achievement">Yangi yutuq!</div>
+                    <div class="text-sm font-bold" data-i18n="mock.achievementName">7 kunlik streak</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== TRUSTED BY / LOGOS ====================== -->
+    <section class="mt-24 mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <p class="text-center text-sm font-semibold tracking-wider uppercase text-slate-500 dark:text-slate-400" data-i18n="trust.title">Yetakchi ta'lim markazlari ishonchi</p>
+      <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 xl:gap-8 items-center opacity-70">
+        <div class="flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400 font-display font-bold text-lg"><i data-lucide="atom" class="h-5 w-5"></i> EduMaster</div>
+        <div class="flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400 font-display font-bold text-lg"><i data-lucide="rocket" class="h-5 w-5"></i> SkyLearn</div>
+        <div class="flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400 font-display font-bold text-lg"><i data-lucide="sparkles" class="h-5 w-5"></i> BrightKids</div>
+        <div class="flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400 font-display font-bold text-lg"><i data-lucide="book-marked" class="h-5 w-5"></i> ProAcademy</div>
+        <div class="flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400 font-display font-bold text-lg"><i data-lucide="lightbulb" class="h-5 w-5"></i> Geniusly</div>
+        <div class="flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400 font-display font-bold text-lg"><i data-lucide="globe-2" class="h-5 w-5"></i> WorldEdu</div>
+      </div>
+    </section>
+
+    <!-- ====================== FEATURES BENTO ====================== -->
+    <section id="features" class="mt-32 mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <div class="text-center max-w-3xl mx-auto reveal">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 dark:bg-brand-500/10 text-brand-700 dark:text-brand-300" data-i18n="features.badge">IMKONIYATLAR</span>
+        <h2 class="mt-4 font-display text-4xl sm:text-5xl font-bold tracking-tight" data-i18n="features.title">Bitta platforma — yuzlab imkoniyat</h2>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400" data-i18n="features.subtitle">
+          Ta'lim markazingizni boshqarish uchun zarur bo'lgan barcha vositalar bir joyda.
+        </p>
+      </div>
+
+      <!-- Bento grid -->
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-6 gap-5 xl:gap-6 reveal">
+
+        <!-- Big card: AI Test Generator -->
+        <div class="md:col-span-4 group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-white/10 bg-gradient-to-br from-brand-500 via-brand-600 to-fuchsia-600 p-8 text-white shadow-xl">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.25),transparent_60%)]"></div>
+          <div class="relative z-10 flex flex-col h-full">
+            <div class="grid place-items-center h-14 w-14 rounded-2xl bg-white/20 backdrop-blur">
+              <i data-lucide="sparkles" class="h-7 w-7"></i>
+            </div>
+            <h3 class="mt-6 font-display text-3xl font-bold" data-i18n="feat.ai.title">AI Test Generator</h3>
+            <p class="mt-3 text-white/90 max-w-md" data-i18n="feat.ai.desc">
+              Mavzu va qiyinlik darajasini kiriting — AI bir necha soniyada test, izoh va to'g'ri javoblarni yaratib beradi.
+            </p>
+            <div class="mt-6 grid grid-cols-2 gap-3 text-sm max-w-md">
+              <div class="flex items-center gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="feat.ai.b1">Tez generatsiya</span></div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="feat.ai.b2">3 til qo'llab-quvvatlanadi</span></div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="feat.ai.b3">Avtomatik baholash</span></div>
+              <div class="flex items-center gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="feat.ai.b4">Tushuntirishlar</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attendance -->
+        <div class="md:col-span-2 group rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-6 hover:shadow-xl hover:-translate-y-1 transition">
+          <div class="grid place-items-center h-12 w-12 rounded-xl bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+            <i data-lucide="user-check" class="h-6 w-6"></i>
+          </div>
+          <h3 class="mt-5 font-display text-xl font-bold" data-i18n="feat.attendance.title">Davomat</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="feat.attendance.desc">Bir bosishda guruh davomatini belgilang. Avtomatik ball tizimi.</p>
+        </div>
+
+        <!-- Gamification -->
+        <div class="md:col-span-2 group rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-6 hover:shadow-xl hover:-translate-y-1 transition">
+          <div class="grid place-items-center h-12 w-12 rounded-xl bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400">
+            <i data-lucide="gamepad-2" class="h-6 w-6"></i>
+          </div>
+          <h3 class="mt-5 font-display text-xl font-bold" data-i18n="feat.gamif.title">Geymifikatsiya</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="feat.gamif.desc">Ballar, do'kon va o'yinlar — talabalar motivatsiyasini oshiring.</p>
+        </div>
+
+        <!-- Lessons -->
+        <div class="md:col-span-2 group rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-6 hover:shadow-xl hover:-translate-y-1 transition">
+          <div class="grid place-items-center h-12 w-12 rounded-xl bg-sky-100 dark:bg-sky-500/20 text-sky-600 dark:text-sky-400">
+            <i data-lucide="book-open" class="h-6 w-6"></i>
+          </div>
+          <h3 class="mt-5 font-display text-xl font-bold" data-i18n="feat.lessons.title">Darslar va uy vazifalari</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="feat.lessons.desc">Mavzular, materiallar va topshiriqlar — barchasi tartib bilan.</p>
+        </div>
+
+        <!-- Big: Real-time chat -->
+        <div class="md:col-span-3 group rounded-3xl border border-slate-200 dark:border-white/10 bg-gradient-to-br from-emerald-500 to-teal-600 p-8 text-white">
+          <div class="grid place-items-center h-14 w-14 rounded-2xl bg-white/20 backdrop-blur">
+            <i data-lucide="messages-square" class="h-7 w-7"></i>
+          </div>
+          <h3 class="mt-6 font-display text-2xl font-bold" data-i18n="feat.chat.title">Real-time muloqot</h3>
+          <p class="mt-2 text-white/90 max-w-md" data-i18n="feat.chat.desc">
+            O'qituvchi, talaba va ota-ona o'rtasida xabar almashish. Guruh chatlari, fayllar va o'qish belgilari.
+          </p>
+          <div class="mt-5 flex -space-x-2">
+            <div class="h-9 w-9 rounded-full border-2 border-white bg-gradient-to-br from-pink-400 to-rose-500 grid place-items-center text-xs font-bold">A</div>
+            <div class="h-9 w-9 rounded-full border-2 border-white bg-gradient-to-br from-blue-400 to-indigo-500 grid place-items-center text-xs font-bold">N</div>
+            <div class="h-9 w-9 rounded-full border-2 border-white bg-gradient-to-br from-amber-400 to-orange-500 grid place-items-center text-xs font-bold">S</div>
+            <div class="h-9 w-9 rounded-full border-2 border-white bg-white/30 backdrop-blur grid place-items-center text-xs font-bold">+12</div>
+          </div>
+        </div>
+
+        <!-- Big: Analytics -->
+        <div class="md:col-span-3 group rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-8 hover:shadow-xl hover:-translate-y-1 transition">
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="grid place-items-center h-12 w-12 rounded-xl bg-fuchsia-100 dark:bg-fuchsia-500/20 text-fuchsia-600 dark:text-fuchsia-400">
+                <i data-lucide="bar-chart-3" class="h-6 w-6"></i>
+              </div>
+              <h3 class="mt-5 font-display text-2xl font-bold" data-i18n="feat.analytics.title">Chuqur analitika</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-sm" data-i18n="feat.analytics.desc">Davomat, baholar va daromad — tushunarli grafiklar bilan.</p>
+            </div>
+            <div class="grid grid-cols-4 gap-1 items-end h-16">
+              <div class="w-2 rounded-full bg-fuchsia-200 dark:bg-fuchsia-500/40" style="height:30%"></div>
+              <div class="w-2 rounded-full bg-fuchsia-300 dark:bg-fuchsia-500/60" style="height:60%"></div>
+              <div class="w-2 rounded-full bg-fuchsia-400 dark:bg-fuchsia-500/80" style="height:80%"></div>
+              <div class="w-2 rounded-full bg-fuchsia-500" style="height:100%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payments -->
+        <div class="md:col-span-2 group rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-6 hover:shadow-xl hover:-translate-y-1 transition">
+          <div class="grid place-items-center h-12 w-12 rounded-xl bg-violet-100 dark:bg-violet-500/20 text-violet-600 dark:text-violet-400">
+            <i data-lucide="credit-card" class="h-6 w-6"></i>
+          </div>
+          <h3 class="mt-5 font-display text-xl font-bold" data-i18n="feat.pay.title">To'lovlar</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="feat.pay.desc">Oylik to'lovlar, qarzdorliklar va kvitansiyalar bir joyda.</p>
+        </div>
+
+        <!-- Calendar -->
+        <div class="md:col-span-2 group rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-6 hover:shadow-xl hover:-translate-y-1 transition">
+          <div class="grid place-items-center h-12 w-12 rounded-xl bg-rose-100 dark:bg-rose-500/20 text-rose-600 dark:text-rose-400">
+            <i data-lucide="calendar-days" class="h-6 w-6"></i>
+          </div>
+          <h3 class="mt-5 font-display text-xl font-bold" data-i18n="feat.cal.title">Kalendar</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="feat.cal.desc">Darslar, imtihonlar va tadbirlar bitta jadvalda.</p>
+        </div>
+
+        <!-- Pomodoro -->
+        <div class="md:col-span-2 group rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-6 hover:shadow-xl hover:-translate-y-1 transition">
+          <div class="grid place-items-center h-12 w-12 rounded-xl bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400">
+            <i data-lucide="timer" class="h-6 w-6"></i>
+          </div>
+          <h3 class="mt-5 font-display text-xl font-bold" data-i18n="feat.pomo.title">Pomodoro</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="feat.pomo.desc">Talabalar uchun ichki fokus taymeri va tanaffus o'yinlari.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================== ROLES ====================== -->
+    <section id="roles" class="mt-32 mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <div class="text-center max-w-3xl mx-auto reveal">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-fuchsia-50 dark:bg-fuchsia-500/10 text-fuchsia-700 dark:text-fuchsia-300" data-i18n="roles.badge">4 ROL — 4 INTERFEYS</span>
+        <h2 class="mt-4 font-display text-4xl sm:text-5xl font-bold tracking-tight" data-i18n="roles.title">Har kim uchun mukammal tajriba</h2>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400" data-i18n="roles.subtitle">Admin, o'qituvchi, talaba va ota-ona — har biri o'z ehtiyojiga moslangan.</p>
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-7 reveal">
+
+        <!-- Admin -->
+        <div class="group relative rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-7 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition">
+          <div class="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-gradient-to-br from-brand-500/20 to-transparent blur-2xl"></div>
+          <div class="relative">
+            <div class="grid place-items-center h-14 w-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-lg shadow-brand-500/30">
+              <i data-lucide="shield-check" class="h-7 w-7"></i>
+            </div>
+            <h3 class="mt-5 font-display text-2xl font-bold" data-i18n="role.admin.title">Admin</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="role.admin.desc">Markazni to'liq boshqarish — moliyadan analitikagacha.</p>
+            <ul class="mt-5 space-y-2.5 text-sm">
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-brand-500 mt-0.5 shrink-0"></i><span data-i18n="role.admin.f1">O'qituvchi va talabalar boshqaruvi</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-brand-500 mt-0.5 shrink-0"></i><span data-i18n="role.admin.f2">Daromad va xarajatlar hisoboti</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-brand-500 mt-0.5 shrink-0"></i><span data-i18n="role.admin.f3">Do'kon va mukofotlar</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-brand-500 mt-0.5 shrink-0"></i><span data-i18n="role.admin.f4">KPI va samaradorlik</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Teacher -->
+        <div class="group relative rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-7 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition">
+          <div class="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-gradient-to-br from-emerald-500/20 to-transparent blur-2xl"></div>
+          <div class="relative">
+            <div class="grid place-items-center h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/30">
+              <i data-lucide="presentation" class="h-7 w-7"></i>
+            </div>
+            <h3 class="mt-5 font-display text-2xl font-bold" data-i18n="role.teacher.title">O'qituvchi</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="role.teacher.desc">Dars o'tish va talabalar bilan ishlash uchun kuchli vositalar.</p>
+            <ul class="mt-5 space-y-2.5 text-sm">
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500 mt-0.5 shrink-0"></i><span data-i18n="role.teacher.f1">Guruhlar va dars rejasi</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500 mt-0.5 shrink-0"></i><span data-i18n="role.teacher.f2">Davomat va baholash</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500 mt-0.5 shrink-0"></i><span data-i18n="role.teacher.f3">AI bilan test yaratish</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500 mt-0.5 shrink-0"></i><span data-i18n="role.teacher.f4">Talabalar bilan chat</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Student -->
+        <div class="group relative rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-7 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition">
+          <div class="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-gradient-to-br from-amber-500/20 to-transparent blur-2xl"></div>
+          <div class="relative">
+            <div class="grid place-items-center h-14 w-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg shadow-amber-500/30">
+              <i data-lucide="rocket" class="h-7 w-7"></i>
+            </div>
+            <h3 class="mt-5 font-display text-2xl font-bold" data-i18n="role.student.title">Talaba</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="role.student.desc">O'rganish — qiziqarli va motivatsiyali bo'lsin.</p>
+            <ul class="mt-5 space-y-2.5 text-sm">
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-amber-500 mt-0.5 shrink-0"></i><span data-i18n="role.student.f1">Ballar va mukofotlar do'koni</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-amber-500 mt-0.5 shrink-0"></i><span data-i18n="role.student.f2">O'yinlar va Pomodoro</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-amber-500 mt-0.5 shrink-0"></i><span data-i18n="role.student.f3">Uy vazifalari va testlar</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-amber-500 mt-0.5 shrink-0"></i><span data-i18n="role.student.f4">Yutuqlar va reyting</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Parent -->
+        <div class="group relative rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-7 overflow-hidden hover:-translate-y-1 hover:shadow-2xl transition">
+          <div class="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-gradient-to-br from-rose-500/20 to-transparent blur-2xl"></div>
+          <div class="relative">
+            <div class="grid place-items-center h-14 w-14 rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 text-white shadow-lg shadow-rose-500/30">
+              <i data-lucide="heart-handshake" class="h-7 w-7"></i>
+            </div>
+            <h3 class="mt-5 font-display text-2xl font-bold" data-i18n="role.parent.title">Ota-ona</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="role.parent.desc">Farzand muvaffaqiyatini doimo nazoratda tuting.</p>
+            <ul class="mt-5 space-y-2.5 text-sm">
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-rose-500 mt-0.5 shrink-0"></i><span data-i18n="role.parent.f1">Davomat va baholar</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-rose-500 mt-0.5 shrink-0"></i><span data-i18n="role.parent.f2">To'lovlar tarixi</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-rose-500 mt-0.5 shrink-0"></i><span data-i18n="role.parent.f3">Yutuqlar va xabarnomalar</span></li>
+              <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-rose-500 mt-0.5 shrink-0"></i><span data-i18n="role.parent.f4">O'qituvchi bilan bog'lanish</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SHOWCASE / TABS ====================== -->
+    <section id="showcase" class="mt-32 mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <div class="text-center max-w-3xl mx-auto reveal">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" data-i18n="showcase.badge">JONLI DEMO</span>
+        <h2 class="mt-4 font-display text-4xl sm:text-5xl font-bold tracking-tight" data-i18n="showcase.title">Ko'ring va sinab ko'ring</h2>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400" data-i18n="showcase.subtitle">Har bir rolda interfeys qanday ko'rinishini o'rganing.</p>
+      </div>
+
+      <div class="mt-12 reveal">
+        <!-- Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 mb-8" id="showcaseTabs">
+          <button data-tab="admin"   class="tab-btn active px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 dark:border-white/10 transition" data-i18n="role.admin.title">Admin</button>
+          <button data-tab="teacher" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 dark:border-white/10 transition" data-i18n="role.teacher.title">O'qituvchi</button>
+          <button data-tab="student" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 dark:border-white/10 transition" data-i18n="role.student.title">Talaba</button>
+          <button data-tab="parent"  class="tab-btn px-5 py-2.5 rounded-xl text-sm font-semibold border border-slate-200 dark:border-white/10 transition" data-i18n="role.parent.title">Ota-ona</button>
+        </div>
+
+        <!-- Tab content -->
+        <div class="relative rounded-3xl border border-slate-200 dark:border-white/10 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 p-6 sm:p-10 shadow-2xl overflow-hidden">
+
+          <!-- Admin -->
+          <div class="tab-panel grid lg:grid-cols-2 gap-10 items-center" data-panel="admin">
+            <div>
+              <div class="inline-flex items-center gap-2 rounded-full bg-brand-100 dark:bg-brand-500/10 text-brand-700 dark:text-brand-300 px-3 py-1 text-xs font-semibold">
+                <i data-lucide="shield-check" class="h-3.5 w-3.5"></i>
+                <span data-i18n="role.admin.title">Admin</span>
+              </div>
+              <h3 class="mt-4 font-display text-3xl font-bold" data-i18n="show.admin.title">To'liq nazorat panelingizda</h3>
+              <p class="mt-3 text-slate-600 dark:text-slate-400" data-i18n="show.admin.desc">Daromad, talabalar oqimi, o'qituvchilar samaradorligi va to'lov holati bo'yicha hisobotlar.</p>
+              <ul class="mt-5 space-y-3 text-sm">
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-brand-100 dark:bg-brand-500/20 text-brand-600"><i data-lucide="trending-up" class="h-3.5 w-3.5"></i></span><span data-i18n="show.admin.b1">Oylik daromad va o'sish dinamikasi</span></li>
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-brand-100 dark:bg-brand-500/20 text-brand-600"><i data-lucide="users" class="h-3.5 w-3.5"></i></span><span data-i18n="show.admin.b2">Foydalanuvchilar bo'yicha taqsimot</span></li>
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-brand-100 dark:bg-brand-500/20 text-brand-600"><i data-lucide="award" class="h-3.5 w-3.5"></i></span><span data-i18n="show.admin.b3">Eng yaxshi o'qituvchilar reytingi</span></li>
+              </ul>
+            </div>
+
+            <!-- Mock admin dashboard -->
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-xl overflow-hidden">
+              <div class="bg-gradient-to-r from-brand-500 to-fuchsia-500 p-4 text-white">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-xs opacity-80">Admin Dashboard</div>
+                    <div class="font-bold">Talima.uz</div>
+                  </div>
+                  <i data-lucide="layout-dashboard" class="h-5 w-5"></i>
+                </div>
+              </div>
+              <div class="p-4 grid grid-cols-2 gap-3">
+                <div class="rounded-xl bg-emerald-50 dark:bg-emerald-500/10 p-3">
+                  <div class="text-xs text-emerald-700 dark:text-emerald-400 font-semibold">Daromad</div>
+                  <div class="text-2xl font-bold text-emerald-600 dark:text-emerald-300">$25,400</div>
+                  <div class="text-[10px] text-emerald-600/80">+12% bu oy</div>
+                </div>
+                <div class="rounded-xl bg-brand-50 dark:bg-brand-500/10 p-3">
+                  <div class="text-xs text-brand-700 dark:text-brand-400 font-semibold">Talabalar</div>
+                  <div class="text-2xl font-bold text-brand-600 dark:text-brand-300">245</div>
+                  <div class="text-[10px] text-brand-600/80">+8 yangi</div>
+                </div>
+                <div class="col-span-2 rounded-xl border border-slate-200 dark:border-white/10 p-3">
+                  <div class="text-xs font-semibold mb-2">Oylik daromad</div>
+                  <div class="flex items-end gap-1.5 h-20">
+                    <div class="flex-1 rounded bg-gradient-to-t from-brand-500 to-brand-300" style="height:40%"></div>
+                    <div class="flex-1 rounded bg-gradient-to-t from-brand-500 to-brand-300" style="height:55%"></div>
+                    <div class="flex-1 rounded bg-gradient-to-t from-brand-500 to-brand-300" style="height:70%"></div>
+                    <div class="flex-1 rounded bg-gradient-to-t from-brand-500 to-brand-300" style="height:60%"></div>
+                    <div class="flex-1 rounded bg-gradient-to-t from-brand-500 to-brand-300" style="height:85%"></div>
+                    <div class="flex-1 rounded bg-gradient-to-t from-fuchsia-500 to-fuchsia-300" style="height:100%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Teacher -->
+          <div class="tab-panel hidden grid lg:grid-cols-2 gap-10 items-center" data-panel="teacher">
+            <div>
+              <div class="inline-flex items-center gap-2 rounded-full bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 px-3 py-1 text-xs font-semibold">
+                <i data-lucide="presentation" class="h-3.5 w-3.5"></i>
+                <span data-i18n="role.teacher.title">O'qituvchi</span>
+              </div>
+              <h3 class="mt-4 font-display text-3xl font-bold" data-i18n="show.teacher.title">Dars berishga e'tibor qarating</h3>
+              <p class="mt-3 text-slate-600 dark:text-slate-400" data-i18n="show.teacher.desc">Davomat, dars rejasi, AI testlar va talabalar bilan muloqot — barchasi bir oynada.</p>
+              <ul class="mt-5 space-y-3 text-sm">
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600"><i data-lucide="user-check" class="h-3.5 w-3.5"></i></span><span data-i18n="show.teacher.b1">Bitta bosishda davomat</span></li>
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600"><i data-lucide="sparkles" class="h-3.5 w-3.5"></i></span><span data-i18n="show.teacher.b2">AI bilan tezkor test yaratish</span></li>
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600"><i data-lucide="line-chart" class="h-3.5 w-3.5"></i></span><span data-i18n="show.teacher.b3">Har bir talaba progressi</span></li>
+              </ul>
+            </div>
+
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-xl overflow-hidden">
+              <div class="bg-gradient-to-r from-emerald-500 to-teal-500 p-4 text-white">
+                <div class="font-bold">Math A — Davomat</div>
+                <div class="text-xs opacity-80">12 talaba • Bugun</div>
+              </div>
+              <div class="p-4 space-y-2">
+                <div class="flex items-center gap-3 rounded-lg p-2 hover:bg-slate-50 dark:hover:bg-white/5">
+                  <div class="h-8 w-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 grid place-items-center text-white text-xs font-bold">A</div>
+                  <span class="flex-1 text-sm font-medium">Aziz Karimov</span>
+                  <span class="rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] px-2 py-0.5 font-semibold">+10 ball</span>
+                  <i data-lucide="check-circle-2" class="h-5 w-5 text-emerald-500"></i>
+                </div>
+                <div class="flex items-center gap-3 rounded-lg p-2 hover:bg-slate-50 dark:hover:bg-white/5">
+                  <div class="h-8 w-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 grid place-items-center text-white text-xs font-bold">N</div>
+                  <span class="flex-1 text-sm font-medium">Nargiza Po'latova</span>
+                  <span class="rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] px-2 py-0.5 font-semibold">+10 ball</span>
+                  <i data-lucide="check-circle-2" class="h-5 w-5 text-emerald-500"></i>
+                </div>
+                <div class="flex items-center gap-3 rounded-lg p-2 hover:bg-slate-50 dark:hover:bg-white/5">
+                  <div class="h-8 w-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 grid place-items-center text-white text-xs font-bold">S</div>
+                  <span class="flex-1 text-sm font-medium">Sardor Toshev</span>
+                  <span class="rounded-full bg-rose-100 dark:bg-rose-500/20 text-rose-700 dark:text-rose-400 text-[10px] px-2 py-0.5 font-semibold">Yo'q</span>
+                  <i data-lucide="x-circle" class="h-5 w-5 text-rose-500"></i>
+                </div>
+                <div class="flex items-center gap-3 rounded-lg p-2 hover:bg-slate-50 dark:hover:bg-white/5">
+                  <div class="h-8 w-8 rounded-full bg-gradient-to-br from-purple-400 to-fuchsia-500 grid place-items-center text-white text-xs font-bold">D</div>
+                  <span class="flex-1 text-sm font-medium">Dilnoza Yusupova</span>
+                  <span class="rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] px-2 py-0.5 font-semibold">+10 ball</span>
+                  <i data-lucide="check-circle-2" class="h-5 w-5 text-emerald-500"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Student -->
+          <div class="tab-panel hidden grid lg:grid-cols-2 gap-10 items-center" data-panel="student">
+            <div>
+              <div class="inline-flex items-center gap-2 rounded-full bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300 px-3 py-1 text-xs font-semibold">
+                <i data-lucide="rocket" class="h-3.5 w-3.5"></i>
+                <span data-i18n="role.student.title">Talaba</span>
+              </div>
+              <h3 class="mt-4 font-display text-3xl font-bold" data-i18n="show.student.title">O'qish — bu o'yinga aylansin</h3>
+              <p class="mt-3 text-slate-600 dark:text-slate-400" data-i18n="show.student.desc">Ball to'plang, yutuqlar oching va do'kondan mukofotlar sotib oling.</p>
+              <ul class="mt-5 space-y-3 text-sm">
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-amber-100 dark:bg-amber-500/20 text-amber-600"><i data-lucide="coins" class="h-3.5 w-3.5"></i></span><span data-i18n="show.student.b1">Davomat va vazifalar uchun ball</span></li>
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-amber-100 dark:bg-amber-500/20 text-amber-600"><i data-lucide="gift" class="h-3.5 w-3.5"></i></span><span data-i18n="show.student.b2">Mukofotlar do'koni</span></li>
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-amber-100 dark:bg-amber-500/20 text-amber-600"><i data-lucide="gamepad-2" class="h-3.5 w-3.5"></i></span><span data-i18n="show.student.b3">Tanaffus o'yinlari va Pomodoro</span></li>
+              </ul>
+            </div>
+
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-xl overflow-hidden">
+              <div class="bg-gradient-to-r from-amber-500 to-orange-500 p-4 text-white">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-xs opacity-80">Mening ballarim</div>
+                    <div class="text-2xl font-bold">1,250 🪙</div>
+                  </div>
+                  <i data-lucide="trophy" class="h-8 w-8 opacity-90"></i>
+                </div>
+              </div>
+              <div class="p-4 space-y-3">
+                <div class="text-xs font-semibold text-slate-600 dark:text-slate-400">DO'KON</div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="rounded-xl border border-slate-200 dark:border-white/10 p-3 hover:shadow-md transition">
+                    <div class="aspect-square rounded-lg bg-gradient-to-br from-pink-100 to-rose-200 dark:from-pink-500/20 dark:to-rose-500/20 grid place-items-center text-3xl">🎧</div>
+                    <div class="text-xs font-semibold mt-2">Naushnik</div>
+                    <div class="text-[10px] text-amber-600 font-bold">800 🪙</div>
+                  </div>
+                  <div class="rounded-xl border border-slate-200 dark:border-white/10 p-3 hover:shadow-md transition">
+                    <div class="aspect-square rounded-lg bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-blue-500/20 dark:to-indigo-500/20 grid place-items-center text-3xl">📚</div>
+                    <div class="text-xs font-semibold mt-2">Kitob</div>
+                    <div class="text-[10px] text-amber-600 font-bold">300 🪙</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Parent -->
+          <div class="tab-panel hidden grid lg:grid-cols-2 gap-10 items-center" data-panel="parent">
+            <div>
+              <div class="inline-flex items-center gap-2 rounded-full bg-rose-100 dark:bg-rose-500/10 text-rose-700 dark:text-rose-300 px-3 py-1 text-xs font-semibold">
+                <i data-lucide="heart-handshake" class="h-3.5 w-3.5"></i>
+                <span data-i18n="role.parent.title">Ota-ona</span>
+              </div>
+              <h3 class="mt-4 font-display text-3xl font-bold" data-i18n="show.parent.title">Farzand muvaffaqiyati — sizning kafilligingiz</h3>
+              <p class="mt-3 text-slate-600 dark:text-slate-400" data-i18n="show.parent.desc">Davomat, baholar, to'lovlar va o'qituvchi xabarlari bir joyda.</p>
+              <ul class="mt-5 space-y-3 text-sm">
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-rose-100 dark:bg-rose-500/20 text-rose-600"><i data-lucide="bell" class="h-3.5 w-3.5"></i></span><span data-i18n="show.parent.b1">Real-time xabarnomalar</span></li>
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-rose-100 dark:bg-rose-500/20 text-rose-600"><i data-lucide="receipt" class="h-3.5 w-3.5"></i></span><span data-i18n="show.parent.b2">To'lovlar va kvitansiyalar</span></li>
+                <li class="flex gap-3"><span class="grid place-items-center h-6 w-6 rounded-md bg-rose-100 dark:bg-rose-500/20 text-rose-600"><i data-lucide="message-circle" class="h-3.5 w-3.5"></i></span><span data-i18n="show.parent.b3">O'qituvchi bilan to'g'ridan-to'g'ri</span></li>
+              </ul>
+            </div>
+
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-xl overflow-hidden">
+              <div class="bg-gradient-to-r from-rose-500 to-pink-500 p-4 text-white">
+                <div class="flex items-center gap-3">
+                  <div class="h-12 w-12 rounded-2xl bg-white/20 grid place-items-center font-bold text-lg">A</div>
+                  <div>
+                    <div class="text-xs opacity-80">Mening farzandim</div>
+                    <div class="font-bold">Aziz Karimov • 7-sinf</div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-4 grid grid-cols-2 gap-3">
+                <div class="rounded-xl bg-emerald-50 dark:bg-emerald-500/10 p-3 text-center">
+                  <div class="text-2xl font-bold text-emerald-600">96%</div>
+                  <div class="text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold">DAVOMAT</div>
+                </div>
+                <div class="rounded-xl bg-brand-50 dark:bg-brand-500/10 p-3 text-center">
+                  <div class="text-2xl font-bold text-brand-600">4.7</div>
+                  <div class="text-[10px] text-brand-700 dark:text-brand-400 font-semibold">O'RTACHA</div>
+                </div>
+                <div class="col-span-2 rounded-xl bg-amber-50 dark:bg-amber-500/10 p-3 flex items-center gap-3">
+                  <div class="grid place-items-center h-10 w-10 rounded-xl bg-amber-500 text-white">
+                    <i data-lucide="award" class="h-5 w-5"></i>
+                  </div>
+                  <div class="flex-1">
+                    <div class="text-sm font-bold">Yangi yutuq oldi!</div>
+                    <div class="text-xs text-slate-600 dark:text-slate-400">"7 kunlik streak" — 50 ball</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== STATS BANNER ====================== -->
+    <section class="mt-32 mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-600 via-brand-700 to-fuchsia-700 p-10 sm:p-14 text-white shadow-2xl">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.3),transparent_50%)]"></div>
+        <div class="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
+
+        <div class="relative grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <div class="reveal">
+            <div class="font-display text-4xl sm:text-5xl font-bold">100+</div>
+            <div class="mt-2 text-sm text-white/80" data-i18n="stats.s1">Ta'lim markazlari</div>
+          </div>
+          <div class="reveal" style="animation-delay:.1s">
+            <div class="font-display text-4xl sm:text-5xl font-bold">10,000+</div>
+            <div class="mt-2 text-sm text-white/80" data-i18n="stats.s2">Faol talabalar</div>
+          </div>
+          <div class="reveal" style="animation-delay:.2s">
+            <div class="font-display text-4xl sm:text-5xl font-bold">500+</div>
+            <div class="mt-2 text-sm text-white/80" data-i18n="stats.s3">O'qituvchilar</div>
+          </div>
+          <div class="reveal" style="animation-delay:.3s">
+            <div class="font-display text-4xl sm:text-5xl font-bold">98%</div>
+            <div class="mt-2 text-sm text-white/80" data-i18n="stats.s4">Mamnun mijozlar</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== PRICING ====================== -->
+    <section id="pricing" class="mt-32 mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <div class="text-center max-w-3xl mx-auto reveal">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-300" data-i18n="pricing.badge">TARIFLAR</span>
+        <h2 class="mt-4 font-display text-4xl sm:text-5xl font-bold tracking-tight" data-i18n="pricing.title">Sizning markazingizga mos tarif</h2>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-400" data-i18n="pricing.subtitle">Yashirin to'lovlar yo'q. Istalgan vaqtda bekor qiling.</p>
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 reveal">
+
+        <!-- Basic -->
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-8 hover:shadow-xl transition">
+          <div class="text-sm font-semibold text-brand-600 dark:text-brand-400" data-i18n="pricing.basic">Basic</div>
+          <div class="mt-4 flex items-baseline gap-1.5 flex-wrap">
+            <span class="font-display text-4xl sm:text-5xl font-bold">299 000</span>
+            <span class="font-display text-xl font-semibold opacity-80" data-i18n="pricing.currency">so'm</span>
+            <span class="text-slate-500" data-i18n="pricing.month">/oy</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="pricing.basicDesc">Kichik markazlar uchun</p>
+          <ul class="mt-6 space-y-3 text-sm">
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500"></i><span data-i18n="pricing.basic1">50 talabagacha</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500"></i><span data-i18n="pricing.basic2">5 o'qituvchi</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500"></i><span data-i18n="pricing.basic3">Asosiy davomat va to'lovlar</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500"></i><span data-i18n="pricing.basic4">Email qo'llab-quvvatlash</span></li>
+          </ul>
+          <a href="#cta" class="mt-8 block w-full text-center rounded-xl border border-slate-200 dark:border-white/10 px-6 py-3 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-white/5 transition" data-i18n="pricing.start">Boshlash</a>
+        </div>
+
+        <!-- Pro - Featured -->
+        <div class="relative rounded-3xl bg-gradient-to-br from-brand-600 to-fuchsia-600 p-8 text-white shadow-2xl scale-105">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-amber-400 text-amber-900 px-4 py-1 text-xs font-bold uppercase tracking-wide" data-i18n="pricing.popular">Eng mashhur</div>
+          <div class="text-sm font-semibold opacity-90" data-i18n="pricing.pro">Pro</div>
+          <div class="mt-4 flex items-baseline gap-1.5 flex-wrap">
+            <span class="font-display text-4xl sm:text-5xl font-bold">699 000</span>
+            <span class="font-display text-xl font-semibold opacity-90" data-i18n="pricing.currency">so'm</span>
+            <span class="opacity-80" data-i18n="pricing.month">/oy</span>
+          </div>
+          <p class="mt-2 text-sm opacity-90" data-i18n="pricing.proDesc">O'sib borayotgan markazlar uchun</p>
+          <ul class="mt-6 space-y-3 text-sm">
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="pricing.pro1">200 talabagacha</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="pricing.pro2">Cheksiz o'qituvchi</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="pricing.pro3">AI Test Generator</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="pricing.pro4">Geymifikatsiya va do'kon</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="pricing.pro5">Chuqur analitika</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4"></i><span data-i18n="pricing.pro6">24/7 qo'llab-quvvatlash</span></li>
+          </ul>
+          <a href="#cta" class="mt-8 block w-full text-center rounded-xl bg-white text-brand-700 px-6 py-3 text-sm font-bold hover:bg-slate-100 transition" data-i18n="pricing.try">Bepul sinash</a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-8 hover:shadow-xl transition">
+          <div class="text-sm font-semibold text-fuchsia-600 dark:text-fuchsia-400" data-i18n="pricing.ent">Enterprise</div>
+          <div class="mt-4 flex items-baseline gap-1">
+            <span class="font-display text-5xl font-bold" data-i18n="pricing.custom">Sozlanadi</span>
+          </div>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400" data-i18n="pricing.entDesc">Yirik tarmoqlar uchun</p>
+          <ul class="mt-6 space-y-3 text-sm">
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500"></i><span data-i18n="pricing.ent1">Cheksiz talabalar</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500"></i><span data-i18n="pricing.ent2">Bir nechta filial</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500"></i><span data-i18n="pricing.ent3">SSO va xavfsizlik</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500"></i><span data-i18n="pricing.ent4">Dedicated menejer</span></li>
+            <li class="flex gap-2"><i data-lucide="check" class="h-4 w-4 text-emerald-500"></i><span data-i18n="pricing.ent5">SLA va prioritet</span></li>
+          </ul>
+          <a href="#cta" class="mt-8 block w-full text-center rounded-xl border border-slate-200 dark:border-white/10 px-6 py-3 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-white/5 transition" data-i18n="pricing.contact">Bog'lanish</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== TESTIMONIALS ====================== -->
+    <section class="mt-32 mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <div class="text-center max-w-3xl mx-auto reveal">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-300" data-i18n="rev.badge">FIKRLAR</span>
+        <h2 class="mt-4 font-display text-4xl sm:text-5xl font-bold tracking-tight" data-i18n="rev.title">Mijozlarimiz nima deyishadi</h2>
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 xl:gap-8 reveal">
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-7">
+          <div class="flex gap-0.5 text-amber-400 mb-4">
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+          </div>
+          <p class="text-slate-700 dark:text-slate-300" data-i18n="rev.q1">"Talima.uz biznesni butunlay o'zgartirdi. Davomat va to'lovlar avtomatlashtirildi, vaqt 3 baravar tejaldi."</p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="h-12 w-12 rounded-full bg-gradient-to-br from-brand-500 to-fuchsia-500 grid place-items-center text-white font-bold">D</div>
+            <div>
+              <div class="font-bold text-sm" data-i18n="rev.n1">Dilshod Rahimov</div>
+              <div class="text-xs text-slate-500" data-i18n="rev.r1">EduMaster direktori</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-7">
+          <div class="flex gap-0.5 text-amber-400 mb-4">
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+          </div>
+          <p class="text-slate-700 dark:text-slate-300" data-i18n="rev.q2">"AI Test Generator — bu mo'jiza! Endi har bir dars uchun test tayyorlash 5 daqiqada bo'ladi."</p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="h-12 w-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 grid place-items-center text-white font-bold">N</div>
+            <div>
+              <div class="font-bold text-sm" data-i18n="rev.n2">Nodira Po'latova</div>
+              <div class="text-xs text-slate-500" data-i18n="rev.r2">Matematika o'qituvchisi</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 p-7">
+          <div class="flex gap-0.5 text-amber-400 mb-4">
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+            <i data-lucide="star" class="h-4 w-4 fill-current"></i>
+          </div>
+          <p class="text-slate-700 dark:text-slate-300" data-i18n="rev.q3">"Farzandimning progressini istalgan vaqtda kuza­tib boraman. To'lovlar avtomatik — juda qulay."</p>
+          <div class="mt-6 flex items-center gap-3">
+            <div class="h-12 w-12 rounded-full bg-gradient-to-br from-rose-500 to-pink-500 grid place-items-center text-white font-bold">M</div>
+            <div>
+              <div class="font-bold text-sm" data-i18n="rev.n3">Madina Yusupova</div>
+              <div class="text-xs text-slate-500" data-i18n="rev.r3">Ona</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== FAQ ====================== -->
+    <section id="faq" class="mt-32 mx-auto max-w-3xl xl:max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="text-center reveal">
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-sky-50 dark:bg-sky-500/10 text-sky-700 dark:text-sky-300" data-i18n="faq.badge">SAVOLLAR</span>
+        <h2 class="mt-4 font-display text-4xl sm:text-5xl font-bold tracking-tight" data-i18n="faq.title">Tez-tez beriladigan savollar</h2>
+      </div>
+
+      <div class="mt-12 space-y-3 reveal" id="faqList">
+        <div class="faq-item rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+            <span class="font-semibold" data-i18n="faq.q1">Ro'yxatdan o'tish qancha vaqt oladi?</span>
+            <i data-lucide="plus" class="h-5 w-5 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400" data-i18n="faq.a1">
+            Atigi 5 daqiqada — emailingizni kiriting, markaz ma'lumotlarini to'ldiring va boshlang. Kredit karta talab qilinmaydi.
+          </div>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+            <span class="font-semibold" data-i18n="faq.q2">Ma'lumotlarim qay darajada xavfsiz?</span>
+            <i data-lucide="plus" class="h-5 w-5 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400" data-i18n="faq.a2">
+            Barcha ma'lumotlar shifrlangan (TLS 1.3, AES-256). Server O'zbekistonda joylashgan, GDPR talablariga mos keladi.
+          </div>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+            <span class="font-semibold" data-i18n="faq.q3">Mavjud ma'lumotlarni import qila olamanmi?</span>
+            <i data-lucide="plus" class="h-5 w-5 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400" data-i18n="faq.a3">
+            Albatta. Excel, CSV yoki boshqa CRM tizimlaridan import qilish mumkin. Bizning jamoa migratsiyada yordam beradi.
+          </div>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+            <span class="font-semibold" data-i18n="faq.q4">Mobil ilova bormi?</span>
+            <i data-lucide="plus" class="h-5 w-5 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400" data-i18n="faq.a4">
+            Hozircha web platforma to'liq mobil-responsive. Native iOS va Android ilovalar 2026-yil ichida chiqishi rejalashtirilgan.
+          </div>
+        </div>
+
+        <div class="faq-item rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 overflow-hidden">
+          <button class="faq-toggle w-full flex items-center justify-between p-5 text-left">
+            <span class="font-semibold" data-i18n="faq.q5">To'lov turlari qanday?</span>
+            <i data-lucide="plus" class="h-5 w-5 transition-transform"></i>
+          </button>
+          <div class="faq-content hidden px-5 pb-5 text-sm text-slate-600 dark:text-slate-400" data-i18n="faq.a5">
+            Click, Payme, Uzcard, Humo, Visa va MasterCard qo'llab-quvvatlanadi. Yuridik shaxslar uchun bank o'tkazmasi ham bor.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== FINAL CTA ====================== -->
+    <section id="cta" class="mt-32 mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-900 via-brand-900 to-fuchsia-900 p-10 sm:p-16 text-white shadow-2xl reveal">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.4),transparent_55%),radial-gradient(circle_at_70%_70%,rgba(217,70,239,0.4),transparent_55%)]"></div>
+        <div class="absolute -top-32 -right-32 h-80 w-80 rounded-full bg-fuchsia-500/30 blur-3xl"></div>
+
+        <div class="relative max-w-2xl">
+          <h2 class="font-display text-4xl sm:text-5xl font-bold tracking-tight" data-i18n="cta.title">Bugun bepul sinab ko'ring</h2>
+          <p class="mt-4 text-lg text-white/80" data-i18n="cta.subtitle">14 kun bepul. Kredit karta kerak emas. Istalgan vaqtda bekor qiling.</p>
+
+          <form class="mt-8 flex flex-col sm:flex-row gap-3 max-w-lg" onsubmit="event.preventDefault();this.querySelector('button').textContent='✓ Yuborildi'">
+            <input type="email" required placeholder="email@markazingiz.uz" class="flex-1 rounded-xl border border-white/20 bg-white/10 backdrop-blur px-4 py-3 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40" />
+            <button class="rounded-xl bg-white text-brand-700 px-6 py-3 font-semibold hover:bg-slate-100 transition" data-i18n="cta.button">Boshlash</button>
+          </form>
+
+          <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70">
+            <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="h-4 w-4"></i><span data-i18n="cta.b1">Karta talab etilmaydi</span></span>
+            <span class="flex items-center gap-1.5"><i data-lucide="zap" class="h-4 w-4"></i><span data-i18n="cta.b2">5 daqiqada sozlash</span></span>
+            <span class="flex items-center gap-1.5"><i data-lucide="headphones" class="h-4 w-4"></i><span data-i18n="cta.b3">Tezkor yordam</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== FOOTER ====================== -->
+    <footer class="mt-32 border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-950/50">
+      <div class="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-14">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+          <div class="col-span-2">
+            <a href="#" class="flex items-center gap-2">
+              <span class="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-br from-brand-500 to-fuchsia-500 text-white shadow-lg">
+                <i data-lucide="graduation-cap" class="h-5 w-5"></i>
+              </span>
+              <span class="font-display text-xl font-bold">Talima<span class="text-brand-500">.uz</span></span>
+            </a>
+            <p class="mt-4 text-sm text-slate-600 dark:text-slate-400 max-w-sm" data-i18n="footer.about">Ta'lim markazlari uchun zamonaviy boshqaruv platformasi. Davomat, AI testlar va geymifikatsiya — bir joyda.</p>
+            <div class="mt-5 flex gap-3">
+              <a href="#" class="grid place-items-center h-9 w-9 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition"><i data-lucide="instagram" class="h-4 w-4"></i></a>
+              <a href="#" class="grid place-items-center h-9 w-9 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition"><i data-lucide="send" class="h-4 w-4"></i></a>
+              <a href="#" class="grid place-items-center h-9 w-9 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition"><i data-lucide="youtube" class="h-4 w-4"></i></a>
+              <a href="#" class="grid place-items-center h-9 w-9 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition"><i data-lucide="facebook" class="h-4 w-4"></i></a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-sm" data-i18n="footer.product">Mahsulot</h4>
+            <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <li><a href="#features" class="hover:text-brand-600" data-i18n="nav.features">Imkoniyatlar</a></li>
+              <li><a href="#pricing"  class="hover:text-brand-600" data-i18n="nav.pricing">Tariflar</a></li>
+              <li><a href="#showcase" class="hover:text-brand-600" data-i18n="nav.showcase">Demo</a></li>
+              <li><a href="#" class="hover:text-brand-600" data-i18n="footer.changelog">Yangiliklar</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-sm" data-i18n="footer.company">Kompaniya</h4>
+            <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <li><a href="#" class="hover:text-brand-600" data-i18n="footer.about2">Biz haqimizda</a></li>
+              <li><a href="#" class="hover:text-brand-600" data-i18n="footer.blog">Blog</a></li>
+              <li><a href="#" class="hover:text-brand-600" data-i18n="footer.career">Karyera</a></li>
+              <li><a href="#" class="hover:text-brand-600" data-i18n="footer.contact">Aloqa</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-display font-bold text-sm" data-i18n="footer.support">Yordam</h4>
+            <ul class="mt-4 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <li><a href="#faq" class="hover:text-brand-600" data-i18n="nav.faq">FAQ</a></li>
+              <li><a href="#" class="hover:text-brand-600" data-i18n="footer.docs">Hujjatlar</a></li>
+              <li><a href="#" class="hover:text-brand-600" data-i18n="footer.privacy">Maxfiylik</a></li>
+              <li><a href="#" class="hover:text-brand-600" data-i18n="footer.terms">Shartlar</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="text-sm text-slate-500 dark:text-slate-400">© 2026 Talima.uz · v2.0. <span data-i18n="footer.rights">Barcha huquqlar himoyalangan.</span></p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+            <span data-i18n="footer.developer">Dasturchi:</span>
+            <a href="https://github.com/NodirOdilov" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:text-brand-600 dark:hover:text-brand-400 transition-colors font-medium">
+              <i data-lucide="github" class="h-3.5 w-3.5"></i>
+              <span>Nodir Odilov</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Back to top -->
+  <button id="topBtn" class="fixed bottom-6 right-6 z-40 hidden grid place-items-center h-12 w-12 rounded-2xl bg-gradient-to-br from-brand-600 to-fuchsia-600 text-white shadow-xl shadow-brand-500/40 hover:scale-110 transition">
+    <i data-lucide="arrow-up" class="h-5 w-5"></i>
+  </button>
+
+  <script src="js/translations.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

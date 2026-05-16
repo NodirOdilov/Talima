@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366F1"/>
+      <stop offset="0.55" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#D946EF"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="4" width="40" height="40" rx="11" fill="url(#g)"/>
+  <path fill="#fff" d="M10 22h20v2.8H21.5V36h-3.1V24.8H10V22z"/>
+  <path fill="#fff" fill-opacity="0.9" d="M14 14.5c0-1.2 1-2.2 2.2-2.2h7.6c1.2 0 2.2 1 2.2 2.2V18H14v-3.5z"/>
+  <text x="52" y="33" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="26" font-weight="700" fill="currentColor">
+    Talima
+  </text>
+</svg>

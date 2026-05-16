@@ -1,0 +1,133 @@
+/* ====================== Talima.uz Landing Custom Styles ====================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reveal-on-scroll: keep content always visible (the JS hide+reveal loop turned out to fight
+   Tailwind CDN's runtime observer and froze the page). */
+.reveal { opacity: 1; transform: none; }
+
+/* Tabs */
+.tab-btn {
+  background: transparent;
+  color: rgb(71 85 105);
+}
+.dark .tab-btn {
+  color: rgb(203 213 225);
+}
+.tab-btn:hover {
+  background: rgb(241 245 249);
+}
+.dark .tab-btn:hover {
+  background: rgb(255 255 255 / 0.05);
+}
+.tab-btn.active {
+  background: linear-gradient(135deg, #6366f1, #d946ef);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 10px 25px -5px rgb(99 102 241 / 0.5);
+}
+
+/* FAQ */
+.faq-item.open .faq-toggle i[data-lucide="plus"] {
+  transform: rotate(45deg);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(203 213 225);
+  border-radius: 999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(51 65 85);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(99 102 241);
+}
+
+/* Gradient text shine */
+@keyframes shine {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Navbar shrink on scroll */
+.nav-scrolled nav {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.1);
+}
+
+/* Soft mesh gradient utility */
+.bg-mesh {
+  background-image:
+    radial-gradient(at 20% 20%, rgb(99 102 241 / 0.15), transparent 50%),
+    radial-gradient(at 80% 30%, rgb(217 70 239 / 0.15), transparent 50%),
+    radial-gradient(at 50% 80%, rgb(16 185 129 / 0.12), transparent 50%);
+}
+
+/* Tab panels animation */
+.tab-panel {
+  animation: panelIn 0.4s ease-out;
+}
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Lucide icon size sanity */
+[data-lucide] {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Button shine on hover */
+.shine-btn {
+  position: relative;
+  overflow: hidden;
+}
+.shine-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgb(255 255 255 / 0.3), transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.7s;
+}
+.shine-btn:hover::after {
+  transform: translateX(100%);
+}
+
+/* Prevent FOUC during dark mode init */
+html.no-transition *,
+html.no-transition *::before,
+html.no-transition *::after {
+  transition: none !important;
+}
+
+/* Selection refinement */
+::selection {
+  background: rgb(199 210 254);
+  color: rgb(49 46 129);
+}
+
+/* Focus rings */
+:focus-visible {
+  outline: 2px solid rgb(99 102 241);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
